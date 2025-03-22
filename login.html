@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet Explorer - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Theme Variables */
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2980b9;
+      --background-color: #f0f4f8;
+      --text-color: #2c3e50;
+      --container-bg: white;
+      --input-border: #ccc;
+      --error-color: #e74c3c;
+      --success-color: #2ecc71;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --primary-color: #2980b9;
+      --secondary-color: #1abc9c;
+      --background-color: #1a1a1a;
+      --text-color: #ffffff;
+      --container-bg: #2d2d2d;
+      --input-border: #404040;
+      --error-color: #ff6b6b;
+      --success-color: #00b894;
+    }
+
+    /* High Contrast Theme */
+    [data-theme="high-contrast"] {
+      --primary-color: #000000;
+      --secondary-color: #ffffff;
+      --background-color: #ffffff;
+      --text-color: #000000;
+      --container-bg: #ffffff;
+      --input-border: #000000;
+      --error-color: #ff0000;
+      --success-color: #00ff00;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header-controls {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .theme-selector, .language-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid var(--input-border);
+      background: var(--container-bg);
+      color: var(--text-color);
+    }
+
+    .login-container {
+      background: var(--container-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: 1px solid var(--input-border);
+      border-radius: 5px;
+      background: var(--container-bg);
+      color: var(--text-color);
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .toggle a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .toggle a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: var(--error-color);
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .success {
+      color: var(--success-color);
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Password Strength Indicator */
+    .password-strength {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .strength-bar {
+      height: 4px;
+      width: 100%;
+      background: var(--input-border);
+      border-radius: 2px;
+      margin-top: 0.3rem;
+      overflow: hidden;
+    }
+
+    .strength-bar-fill {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s, background-color 0.3s;
+    }
+
+    .strength-text {
+      color: var(--text-color);
+      font-size: 0.8rem;
+    }
+
+    .requirements {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-color);
+    }
+
+    .requirement {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.2rem 0;
+    }
+
+    .requirement.valid {
+      color: var(--success-color);
+    }
+
+    .requirement.invalid {
+      color: var(--error-color);
+    }
+
+    .requirement::before {
+      content: "•";
+      font-size: 1.2rem;
+    }
+
+    .requirement.valid::before {
+      content: "✓";
+      color: var(--success-color);
+    }
+
+    /* RTL Support */
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    [dir="rtl"] .header-controls {
+      right: auto;
+      left: 1rem;
+    }
+
+    [dir="rtl"] input {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-controls">
+    <div class="theme-selector">
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="high-contrast">High Contrast</option>
+      </select>
+    </div>
+    <div class="language-selector">
+      <label for="language-select">Language:</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="zh">中文</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="login-container">
+    <h2 id="form-title">Login</h2>
+    <div class="error" id="error-msg"></div>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="email" id="email" placeholder="Email" style="display: none;" />
+    <input type="password" id="password" placeholder="Password" />
+    <div class="password-strength" id="password-strength" style="display: none;">
+      <div class="strength-text" id="strength-text">Password Strength: <span id="strength-level">Weak</span></div>
+      <div class="strength-bar">
+        <div class="strength-bar-fill" id="strength-bar-fill"></div>
+      </div>
+      <div class="requirements">
+        <div class="requirement" id="length-req">At least 8 characters</div>
+        <div class="requirement" id="uppercase-req">One uppercase letter</div>
+        <div class="requirement" id="lowercase-req">One lowercase letter</div>
+        <div class="requirement" id="number-req">One number</div>
+        <div class="requirement" id="special-req">One special character</div>
+      </div>
+    </div>
+    <div class="preferences" id="preferences" style="display: none;">
+      <h3>Preferences</h3>
+      <div class="preference-item">
+        <label for="units">Measurement Units:</label>
+        <select id="units">
+          <option value="metric">Metric</option>
+          <option value="imperial">Imperial</option>
+        </select>
+      </div>
+      <div class="preference-item">
+        <label for="notifications">Enable Notifications:</label>
+        <input type="checkbox" id="notifications" checked>
+      </div>
+    </div>
+    <button id="submit-btn">Login</button>
+    <div class="toggle">
+      <p id="toggle-text">Don't have an account? <a href="#" id="toggle-link">Register</a></p>
+    </div>
+    <div class="forgot-password">
+      <a href="#" id="forgot-password-link">Forgot Password?</a>
+    </div>
+  </div>
+
+  <script>
+    // Theme Management
+    const themeSelect = document.getElementById('theme-select');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeSelect.value = savedTheme;
+
+    themeSelect.addEventListener('change', (e) => {
+      const theme = e.target.value;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
+
+    // Language Management
+    const languageSelect = document.getElementById('language-select');
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    document.documentElement.lang = savedLanguage;
+    languageSelect.value = savedLanguage;
+
+    // RTL Support
+    const rtlLanguages = ['ar'];
+    function updateDirection(language) {
+      document.documentElement.dir = rtlLanguages.includes(language) ? 'rtl' : 'ltr';
+    }
+
+    // Translation Management
+    const translations = {
+      en: {
+        login: "Login",
+        register: "Register",
+        username: "Username",
+        password: "Password",
+        noAccount: "Don't have an account?",
+        hasAccount: "Already have an account?",
+        registerLink: "Register",
+        loginLink: "Login",
+        errorEmpty: "Please fill in all fields.",
+        errorInvalid: "Invalid credentials.",
+        errorExists: "Username already exists.",
+        successRegister: "Registration successful! Please log in.",
+        successLogin: "Login successful!",
+        passwordStrength: "Password Strength:",
+        veryWeak: "Very Weak",
+        weak: "Weak",
+        fair: "Fair",
+        good: "Good",
+        strong: "Strong",
+        veryStrong: "Very Strong",
+        requirements: {
+          length: "At least 8 characters",
+          uppercase: "One uppercase letter",
+          lowercase: "One lowercase letter",
+          number: "One number",
+          special: "One special character"
+        },
+        email: "Email",
+        forgotPassword: "Forgot Password?",
+        preferences: "Preferences",
+        units: "Measurement Units",
+        notifications: "Enable Notifications",
+        resetPassword: "Reset Password",
+        resetEmailSent: "Password reset email sent!",
+        resetEmailError: "Error sending reset email.",
+        metric: "Metric",
+        imperial: "Imperial"
+      },
+      es: {
+        login: "Iniciar Sesión",
+        register: "Registrarse",
+        username: "Nombre de usuario",
+        password: "Contraseña",
+        noAccount: "¿No tienes cuenta?",
+        hasAccount: "¿Ya tienes cuenta?",
+        registerLink: "Registrarse",
+        loginLink: "Iniciar Sesión",
+        errorEmpty: "Por favor, completa todos los campos.",
+        errorInvalid: "Credenciales inválidas.",
+        errorExists: "El nombre de usuario ya existe.",
+        successRegister: "¡Registro exitoso! Por favor, inicia sesión.",
+        successLogin: "¡Inicio de sesión exitoso!",
+        passwordStrength: "Fortaleza de la contraseña:",
+        veryWeak: "Muy débil",
+        weak: "Débil",
+        fair: "Regular",
+        good: "Buena",
+        strong: "Fuerte",
+        veryStrong: "Muy fuerte",
+        requirements: {
+          length: "Al menos 8 caracteres",
+          uppercase: "Una letra mayúscula",
+          lowercase: "Una letra minúscula",
+          number: "Un número",
+          special: "Un carácter especial"
+        },
+        email: "Correo electrónico",
+        forgotPassword: "¿Olvidaste tu contraseña?",
+        preferences: "Preferencias",
+        units: "Unidades de medida",
+        notifications: "Activar notificaciones",
+        resetPassword: "Restablecer contraseña",
+        resetEmailSent: "¡Email de restablecimiento enviado!",
+        resetEmailError: "Error al enviar el email.",
+        metric: "Métrico",
+        imperial: "Imperial"
+      },
+      // Add more languages as needed
+    };
+
+    function loadTranslations(language) {
+      const t = translations[language] || translations['en'];
+      document.getElementById('form-title').textContent = isLogin ? t.login : t.register;
+      document.getElementById('username').placeholder = t.username;
+      document.getElementById('password').placeholder = t.password;
+      document.getElementById('submit-btn').textContent = isLogin ? t.login : t.register;
+      document.getElementById('toggle-text').innerHTML = isLogin
+        ? `${t.noAccount} <a href="#" id="toggle-link">${t.registerLink}</a>`
+        : `${t.hasAccount} <a href="#" id="toggle-link">${t.loginLink}</a>`;
+      
+      // Update password strength translations
+      if (!isLogin) {
+        document.getElementById('strength-text').textContent = `${t.passwordStrength} `;
+        Object.entries(t.requirements).forEach(([key, text]) => {
+          requirements[key].textContent = text;
+        });
+      }
+      
+      emailInput.placeholder = t.email;
+      forgotPasswordLink.textContent = t.forgotPassword;
+      document.querySelector('.preferences h3').textContent = t.preferences;
+      document.querySelector('label[for="units"]').textContent = t.units;
+      document.querySelector('label[for="notifications"]').textContent = t.notifications;
+      unitsSelect.querySelector('option[value="metric"]').textContent = t.metric;
+      unitsSelect.querySelector('option[value="imperial"]').textContent = t.imperial;
+    }
+
+    languageSelect.addEventListener('change', (e) => {
+      const language = e.target.value;
+      document.documentElement.lang = language;
+      localStorage.setItem('language', language);
+      updateDirection(language);
+      loadTranslations(language);
+    });
+
+    // Form Management
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const submitBtn = document.getElementById("submit-btn");
+    const errorMsg = document.getElementById("error-msg");
+    const toggleLink = document.getElementById("toggle-link");
+    const preferencesDiv = document.getElementById("preferences");
+    const forgotPasswordLink = document.getElementById("forgot-password-link");
+    const unitsSelect = document.getElementById("units");
+    const notificationsCheckbox = document.getElementById("notifications");
+    const passwordStrength = document.getElementById("password-strength");
+    let isLogin = true;
+
+    // Password Strength Management
+    const strengthBarFill = document.getElementById("strength-bar-fill");
+    const strengthLevel = document.getElementById("strength-level");
+    const requirements = {
+      length: document.getElementById("length-req"),
+      uppercase: document.getElementById("uppercase-req"),
+      lowercase: document.getElementById("lowercase-req"),
+      number: document.getElementById("number-req"),
+      special: document.getElementById("special-req")
+    };
+
+    function checkPasswordStrength(password) {
+      if (!password) return { text: 'Very Weak', color: '#ff0000', width: '20%' };
+
+      const checks = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      };
+
+      // Update requirement indicators
+      Object.entries(checks).forEach(([key, valid]) => {
+        if (requirements[key]) {
+          requirements[key].classList.toggle('valid', valid);
+          requirements[key].classList.toggle('invalid', !valid);
+        }
+      });
+
+      // Calculate strength score
+      const score = Object.values(checks).filter(Boolean).length;
+      const strength = {
+        0: { text: 'Very Weak', color: '#ff0000', width: '20%' },
+        1: { text: 'Weak', color: '#ff6b6b', width: '40%' },
+        2: { text: 'Fair', color: '#ffd93d', width: '60%' },
+        3: { text: 'Good', color: '#6bff6b', width: '80%' },
+        4: { text: 'Strong', color: '#00ff00', width: '100%' },
+        5: { text: 'Very Strong', color: '#00ff00', width: '100%' }
+      };
+
+      return strength[score] || strength[0];
+    }
+
+    // Email validation
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Form validation
+    function validateForm() {
+      const username = usernameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const t = translations[languageSelect.value] || translations['en'];
+
+      if (!username) {
+        errorMsg.textContent = t.errorEmpty;
+        return false;
+      }
+
+      if (!isLogin) {
+        if (!email) {
+          errorMsg.textContent = t.errorEmpty;
+          return false;
+        }
+        if (!isValidEmail(email)) {
+          errorMsg.textContent = "Please enter a valid email address.";
+          return false;
+        }
+      }
+
+      if (!password) {
+        errorMsg.textContent = t.errorEmpty;
+        return false;
+      }
+
+      if (!isLogin) {
+        const strength = checkPasswordStrength(password);
+        if (strength.text === 'Very Weak' || strength.text === 'Weak') {
+          errorMsg.textContent = t.errorWeakPassword || "Password is too weak. Please make it stronger.";
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    // Password input handler
+    passwordInput.addEventListener('input', (e) => {
+      const password = e.target.value;
+      if (isLogin) {
+        passwordStrength.style.display = 'none';
+        return;
+      }
+
+      passwordStrength.style.display = 'block';
+      const strength = checkPasswordStrength(password);
+      if (strengthBarFill) {
+        strengthBarFill.style.width = strength.width;
+        strengthBarFill.style.backgroundColor = strength.color;
+      }
+      if (strengthLevel) {
+        strengthLevel.textContent = strength.text;
+      }
+    });
+
+    // Toggle form handler
+    toggleLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      emailInput.style.display = isLogin ? 'none' : 'block';
+      passwordStrength.style.display = isLogin ? 'none' : 'block';
+      preferencesDiv.style.display = isLogin ? 'none' : 'block';
+      forgotPasswordLink.style.display = isLogin ? 'block' : 'none';
+      loadTranslations(languageSelect.value);
+      errorMsg.textContent = '';
+    });
+
+    // Form submission
+    submitBtn.addEventListener("click", async () => {
+      if (!validateForm()) return;
+
+      const username = usernameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const t = translations[languageSelect.value] || translations['en'];
+
+      try {
+        const hashed = await hashPassword(password);
+        const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+        if (isLogin) {
+          if (users[username] && users[username].password === hashed) {
+            errorMsg.textContent = "";
+            const user = users[username];
+            user.preferences = {
+              theme: themeSelect.value,
+              language: languageSelect.value,
+              units: unitsSelect.value,
+              notifications: notificationsCheckbox.checked
+            };
+            localStorage.setItem("users", JSON.stringify(users));
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            alert(t.successLogin);
+            window.location.href = "index.html";
+          } else {
+            errorMsg.textContent = t.errorInvalid;
+          }
+        } else {
+          if (users[username]) {
+            errorMsg.textContent = t.errorExists;
+          } else {
+            const newUser = new User(username, email, hashed);
+            newUser.preferences = {
+              theme: themeSelect.value,
+              language: languageSelect.value,
+              units: unitsSelect.value,
+              notifications: notificationsCheckbox.checked
+            };
+            users[username] = newUser;
+            localStorage.setItem("users", JSON.stringify(users));
+            alert(t.successRegister);
+            location.reload();
+          }
+        }
+      } catch (error) {
+        console.error('Error during form submission:', error);
+        errorMsg.textContent = "An error occurred. Please try again.";
+      }
+    });
+
+    // Password Reset
+    forgotPasswordLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const email = prompt(translations[languageSelect.value].email);
+      if (email && isValidEmail(email)) {
+        try {
+          // In a real app, this would send a reset email
+          alert(translations[languageSelect.value].resetEmailSent);
+        } catch (error) {
+          console.error('Error during password reset:', error);
+          alert(translations[languageSelect.value].resetEmailError);
+        }
+      } else if (email) {
+        alert("Please enter a valid email address.");
+      }
+    });
+
+    // Initialize
+    updateDirection(savedLanguage);
+    loadTranslations(savedLanguage);
+    passwordStrength.style.display = isLogin ? 'none' : 'block';
+    emailInput.style.display = isLogin ? 'none' : 'block';
+    preferencesDiv.style.display = isLogin ? 'none' : 'block';
+    forgotPasswordLink.style.display = isLogin ? 'block' : 'none';
+  </script>
+</body>
+</html> 
