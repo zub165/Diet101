@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Diet101 - Diet Management Application
 
 A comprehensive diet management application that helps users create personalized meal plans, track nutrition, and explore various diet options.
@@ -41,7 +40,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
-=======
-# Diet101
->>>>>>> 3377010ac43fa8967c64390aca5821ea49a210cd
+This project is licensed under the MIT License - see the LICENSE file for details.
