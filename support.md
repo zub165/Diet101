@@ -60,7 +60,7 @@ A: Yes, you can customize recommendations based on:
 A: The app can be updated through the App Store (iOS) or Google Play Store (Android).
 
 **Q: How do I report a bug?**
-A: Please email us at diet101support@example.com with:
+A: Please email us at zm_199@hotmail.com with:
 - Description of the issue
 - Steps to reproduce
 - Your device model and OS version
@@ -68,7 +68,7 @@ A: Please email us at diet101support@example.com with:
 ## Contact Us
 
 ### Support Email
-diet101support@example.com
+zm_199@hotmail.com
 
 ### Response Time
 We aim to respond to all inquiries within 24-48 hours.
