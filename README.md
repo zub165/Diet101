@@ -1,43 +1,70 @@
-# Diet101 - Diet Management Application
+# Diet101 🍏  
+Your smart meal planner and nutrition companion.
 
-A comprehensive diet management application that helps users create personalized meal plans, track nutrition, and explore various diet options.
+![App Banner](https://user-images.githubusercontent.com/your-image-link/banner.png)
 
-## Features
+## Overview  
+Diet101 helps users plan balanced meals, track macronutrients, and explore medical and popular diets. Designed for individuals and health professionals, the app brings together personalized diet building and nutritional awareness in a simple interface.
 
-- **Custom Menu Builder**: Create personalized menus with detailed nutritional information
-- **Food Database**: Extensive database of food items with nutritional details
-- **Meal Planning**: Organize meals into breakfast, lunch, and dinner
-- **Nutrition Tracking**: Monitor protein, carbs, fats, and total calories
-- **Multiple Categories**: Browse foods by proteins, carbohydrates, fats, vegetables, and fruits
+---
 
-## Getting Started
+## 📱 Features  
+- 🍽 **Meal Planning**: Add foods to custom meal plans.
+- 📊 **Macronutrient Tracking**: View calories, proteins, carbs, and fats instantly.
+- 🥑 **USDA Integration**: Import nutritional data from the [USDA Food Database](https://fdc.nal.usda.gov/).
+- 🌐 **Multilingual**: English, Spanish, French, German, Chinese, and Arabic.
+- 🎨 **Custom Themes**: Choose from Light, Dark, Green, or Blue themes.
+- 📥 **Offline & Export**: Export meal summaries for offline access.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/zub165/Diet101.git
-   ```
+---
 
-2. Open `index.html` in your web browser to start using the application.
+## 📸 Screenshots  
 
-## Usage
+| Summary View | Meal Plan | Foods List | Theme Settings | Add Food |
+|--------------|-----------|------------|----------------|----------|
+| ![Summary](https://user-images.githubusercontent.com/your-image-link/summary.png) | ![Meal](https://user-images.githubusercontent.com/your-image-link/meal.png) | ![Foods](https://user-images.githubusercontent.com/your-image-link/foods.png) | ![Theme](https://user-images.githubusercontent.com/your-image-link/theme.png) | ![Add Food](https://user-images.githubusercontent.com/your-image-link/add.png) |
 
-1. Use the search bar to find specific food items
-2. Filter foods by category using the dropdown menu
-3. Add items to your menu by clicking "Add to Menu"
-4. View nutritional summary and suggested meal division
-5. Adjust portions as needed
+---
 
-## Technologies Used
+## 📚 Medical Citations  
+All nutrition data and health recommendations are based on publicly available databases and literature:
+- [USDA FoodData Central](https://fdc.nal.usda.gov/)
+- National Institutes of Health: [Dietary Guidelines for Americans](https://www.dietaryguidelines.gov/)
+- World Health Organization: [Healthy Diet Facts](https://www.who.int/news-room/fact-sheets/detail/healthy-diet)
 
-- HTML5
-- CSS3
-- JavaScript
-- Local Storage for data persistence
+---
 
-## Contributing
+## 🔐 Privacy Policy  
+View our full privacy policy here:  
+**[https://zub165.github.io/Diet101/privacy](https://zub165.github.io/Diet101/privacy)**
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We do not collect personal data or track user activity. All data is stored locally on the device.
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🛠 Support  
+Need help or have questions?
+
+- 📧 Email: [support@diet101app.com](mailto:zm_199@hotmail.com)  
+- 🌐 Website: [https://zub165.github.io/Diet101](https://zub165.github.io/Diet101)  
+- 💬 GitHub Issues: [Submit an Issue](https://github.com/zub165/Diet101/issues)
+
+---
+
+## 🚀 Get Started  
+Clone the repository and run the app locally using Flutter:
+
+```bash
+git clone https://github.com/zub165/Diet101.git
+cd Diet101
+flutter pub get
+flutter run
+
+🧠 Contribution
+
+Have suggestions? Pull requests are welcome! Be sure to fork the repo and follow the contributing guidelines.
+
+📜 License
+
+MIT License
+
